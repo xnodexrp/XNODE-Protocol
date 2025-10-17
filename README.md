@@ -1,7 +1,7 @@
 
 # XNODE Protocol — Registry · Telemetry · Rewards (Consolidated)
 
-Production-grade monorepo used for the XRPL grant review. Three services:
+Production-grade monorepo. Three services:
 - **Registry** (port 3001): validator onboarding, domain-proof verification, watcher key registry
 - **Telemetry** (port 3002): signed watcher metrics ingest, per-epoch aggregation
 - **Rewards** (port 3003): epoch budget, weight normalisation, reward set materialisation
