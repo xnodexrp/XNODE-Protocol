@@ -1,0 +1,37 @@
+
+generator client { provider = "prisma-client-js" }
+datasource db { provider = "postgresql"; url = env("DATABASE_URL") }
+
+model Watcher {
+  id           String   @id @default(uuid())
+  name         String
+  pubkey       String   @unique
+  created_at   DateTime @default(now())
+  telemetry    Telemetry[]
+}
+
+model Telemetry {
+  id                 String   @id @default(uuid())
+  watcherId          String
+  epoch_id           Int
+  validator_pubkey   String
+  uptime             Float
+  agreement          Float
+  latency_ms         Int
+  ledger_index       Int
+  signature          String
+  created_at         DateTime @default(now())
+  Watcher            Watcher  @relation(fields: [watcherId], references: [id], onDelete: Cascade)
+}
+
+model EpochAggregate {
+  id               String   @id @default(uuid())
+  epoch_id         Int
+  validator_pubkey String
+  uptime           Float
+  agreement        Float
+  latency_ms       Int
+  score            Float
+  created_at       DateTime @default(now())
+  @@index([epoch_id, validator_pubkey])
+}

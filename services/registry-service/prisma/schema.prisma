@@ -1,0 +1,27 @@
+
+generator client { provider = "prisma-client-js" }
+datasource db { provider = "postgresql"; url = env("DATABASE_URL") }
+
+model Validator {
+  id                 String   @id @default(uuid())
+  validator_pubkey   String   @unique
+  operator_name      String
+  contact_email      String?
+  domain             String
+  ripple_token       String
+  proof_method       String   // dns_txt | well_known
+  verified           Boolean  @default(false)
+  verification_ts    DateTime?
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+  proofs             DomainProof[]
+}
+
+model DomainProof {
+  id           String   @id @default(uuid())
+  validatorId  String
+  method       String
+  nonce        String
+  created_at   DateTime @default(now())
+  Validator    Validator @relation(fields: [validatorId], references: [id], onDelete: Cascade)
+}
