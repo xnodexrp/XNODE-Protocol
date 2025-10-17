@@ -1,0 +1,17 @@
+{
+  "name": "xnode-protocol",
+  "version": "0.4.0",
+  "private": true,
+  "packageManager": "pnpm@9.0.0",
+  "workspaces": [
+    "packages/*",
+    "services/*"
+  ],
+  "scripts": {
+    "dev": "pnpm -r --parallel dev",
+    "build": "pnpm -r build",
+    "prisma:generate": "pnpm -r prisma:generate",
+    "prisma:migrate": "pnpm -r prisma:migrate",
+    "lint": "pnpm -r lint"
+  }
+}
